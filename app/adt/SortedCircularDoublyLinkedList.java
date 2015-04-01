@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 
 public class SortedCircularDoublyLinkedList<E extends Comparable<E>> implements SortedList<E> {
 
+	// Internal classes start
 	private class Node {
 		private E value;
 		private Node next;
@@ -103,6 +104,7 @@ public class SortedCircularDoublyLinkedList<E extends Comparable<E>> implements 
 			}
 		}
 	}
+	// Internal classes end
 
 	private Node header;
 	private int currentSize;
@@ -136,20 +138,64 @@ public class SortedCircularDoublyLinkedList<E extends Comparable<E>> implements 
 
 	@Override
 	public boolean add(E obj) {
-		// TODO Auto-generated method stub
-		return false;
+		if (obj == null) {
+			throw new IllegalArgumentException("Parameter cannot be null.");
+		}
+
+		Node temp = null;
+		if (this.isEmpty())
+			temp = header;
+		else
+			for (temp = header.getNext(); temp != header && temp.getValue().compareTo(obj) < 0;
+					temp = temp.getNext());
+		Node newNode = new Node();
+		newNode.setValue(obj);
+		newNode.setPrev(temp.getPrev());
+		temp.getPrev().setNext(newNode);
+		newNode.setNext(temp);
+		temp.setPrev(newNode);
+		this.currentSize++;
+
+		return true;
 	}
 
 	@Override
 	public boolean remove(E obj) {
-		// TODO Auto-generated method stub
+		if (obj == null) {
+			throw new IllegalArgumentException("Parameter cannot be null.");
+		}
+		Node temp = null;
+		for (temp = header.getNext(); temp != header; temp = temp.getNext()) {
+			if (temp.getValue().equals(obj)) {
+				// found first copy
+				temp.getNext().setPrev(temp.getPrev());
+				temp.getPrev().setNext(temp.getNext());
+				temp.setValue(null);
+				temp.setNext(null);
+				temp.setPrev(null);
+				this.currentSize--;
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public boolean remove(int index) {
-		// TODO Auto-generated method stub
-		return false;
+		if (index < 0 || index >= this.size()) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		Node temp = null;
+		int counter = 0;
+		for (temp = header.getNext(); counter < index; temp = temp.getNext(), counter++);
+		temp.getNext().setPrev(temp.getPrev());
+		temp.getPrev().setNext(temp.getNext());
+		temp.setValue(null);
+		temp.setNext(null);
+		temp.setPrev(null);
+		this.currentSize--;
+		return true;
 	}
 
 	@Override
@@ -177,15 +223,16 @@ public class SortedCircularDoublyLinkedList<E extends Comparable<E>> implements 
 			throw new IndexOutOfBoundsException();
 		}
 
-		int counter = 0;
 		Node temp = null;
 		// closer going forward
 		if (index < this.size() / 2) {
+			int counter = 0;
 			for (temp = header.getNext(); counter < index; temp = temp.getNext(), counter++);
 			return temp.getValue();
 		}
 		// closer going backwards
 		else {
+			int counter = this.size() - 1;
 			for (temp = header.getPrev(); counter > index; temp = temp.getPrev(), counter--);
 			return temp.getValue();
 		}
@@ -226,7 +273,7 @@ public class SortedCircularDoublyLinkedList<E extends Comparable<E>> implements 
 			throw new IllegalArgumentException("Parameter cannot be null.");
 		}
 		else {
-			int counter = 0;
+			int counter = this.size() - 1;
 			Node temp = null;
 			for (temp = header.getPrev(); temp != header; temp = temp.getPrev(), counter--) {
 				if (temp.getValue().equals(e)) {

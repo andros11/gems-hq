@@ -2,9 +2,6 @@ package adt;
 
 public class ListTester {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		SortedList<String> theList = new SortedCircularDoublyLinkedList<String>();
 		System.out.println("Empty List: " + theList.isEmpty());
