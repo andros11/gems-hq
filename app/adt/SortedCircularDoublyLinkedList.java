@@ -143,11 +143,13 @@ public class SortedCircularDoublyLinkedList<E extends Comparable<E>> implements 
 		}
 
 		Node temp = null;
-		if (this.isEmpty())
+		if (this.isEmpty()) {
 			temp = header;
-		else
+		}
+		else {
 			for (temp = header.getNext(); temp != header && temp.getValue().compareTo(obj) < 0;
 					temp = temp.getNext());
+		}
 		Node newNode = new Node();
 		newNode.setValue(obj);
 		newNode.setPrev(temp.getPrev());
@@ -187,8 +189,16 @@ public class SortedCircularDoublyLinkedList<E extends Comparable<E>> implements 
 		}
 
 		Node temp = null;
-		int counter = 0;
-		for (temp = header.getNext(); counter < index; temp = temp.getNext(), counter++);
+		// closer going forward
+		if (index < this.size() / 2) {
+			int counter = 0;
+			for (temp = header.getNext(); counter < index; temp = temp.getNext(), counter++);
+		}
+		// closer going backwards
+		else {
+			int counter = this.size() - 1;
+			for (temp = header.getPrev(); counter > index; temp = temp.getPrev(), counter--);
+		}
 		temp.getNext().setPrev(temp.getPrev());
 		temp.getPrev().setNext(temp.getNext());
 		temp.setValue(null);
