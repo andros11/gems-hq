@@ -2,7 +2,7 @@ package models;
 
 public class Gem implements Comparable<Gem> {
 
-	private long Id;
+	private long id;
 	private String name;
 	private String description;
 	private double price;
@@ -10,9 +10,13 @@ public class Gem implements Comparable<Gem> {
 	private int rarity;
 	private int faces;
 
+	public Gem() {
+	}
+
 	public Gem(long id, String name, String description, double price,
 			int shine, int rarity, int faces) {
-		Id = id;
+		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
@@ -22,11 +26,11 @@ public class Gem implements Comparable<Gem> {
 	}
 
 	public long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getName() {
@@ -79,7 +83,7 @@ public class Gem implements Comparable<Gem> {
 
 	@Override
 	public String toString() {
-		return "(" + this.Id + ", " + this.name + ", " + this.description + ", " + this.price
+		return "(" + this.id + ", " + this.name + ", " + this.description + ", " + this.price
 				+ ", " + this.shine + ", " + this.rarity + ", " + this.faces + ")";
 	}
 
