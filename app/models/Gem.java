@@ -9,12 +9,13 @@ public class Gem implements Comparable<Gem> {
 	private int shine;
 	private int rarity;
 	private int faces;
+	private String color;
 
 	public Gem() {
 	}
 
 	public Gem(long id, String name, String description, double price,
-			int shine, int rarity, int faces) {
+			int shine, int rarity, int faces, String color) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -23,6 +24,7 @@ public class Gem implements Comparable<Gem> {
 		this.shine = shine;
 		this.rarity = rarity;
 		this.faces = faces;
+		this.color = color;
 	}
 
 	public long getId() {
@@ -81,10 +83,18 @@ public class Gem implements Comparable<Gem> {
 		this.faces = faces;
 	}
 
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	@Override
 	public String toString() {
 		return "(" + this.id + ", " + this.name + ", " + this.description + ", " + this.price
-				+ ", " + this.shine + ", " + this.rarity + ", " + this.faces + ")";
+				+ ", " + this.shine + ", " + this.rarity + ", " + this.faces + ", " + this.color + ")";
 	}
 
 	@Override

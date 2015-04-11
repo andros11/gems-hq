@@ -73,6 +73,7 @@ public class GemList {
 			G.setRarity(obj.getRarity());
 			G.setShine(obj.getShine());
 			G.setFaces(obj.getFaces());
+			G.setColor(obj.getColor());
 			return G;
 		}
 	}
