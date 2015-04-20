@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class GemController extends Controller {
 
 	public static Result getGem(Long id) {
-		// DEBUG 
+		// DEBUG
 		System.err.println("GET on id: "+ id);
 
 		ObjectNode result = Json.newObject();
@@ -25,6 +25,21 @@ public class GemController extends Controller {
 		}
 		else {
 			result.put("Gem", Json.toJson(G));
+			return ok(result);
+		}
+	}
+
+	public static Result getGemList() {
+		// DEBUG
+		System.err.println("GET gemList");
+
+		ObjectNode result = Json.newObject();
+		GemList theList = GemList.getInstance();
+		if (theList == null) {
+			return notFound("Gem Not Found"); // 404
+		}
+		else {
+			result.put("GemList", Json.toJson(theList));
 			return ok(result);
 		}
 	}
