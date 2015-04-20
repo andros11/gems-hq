@@ -34,7 +34,7 @@ public class GemController extends Controller {
 		System.err.println("GET gemList");
 
 		ObjectNode result = Json.newObject();
-		GemList theList = GemList.getInstance();
+		Gem[] theList = GemList.getInstance().getAllGems();
 		if (theList == null) {
 			return notFound("Gem Not Found"); // 404
 		}
