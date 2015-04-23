@@ -1,4 +1,4 @@
-package adt;
+package adt.list;
 
 public class ListTester {
 

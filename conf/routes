@@ -20,5 +20,5 @@ PUT     /gem/:id                    controllers.GemController.updateGem(id: Long
 # Remove a gem
 DELETE  /gem/:id                    controllers.GemController.deleteGem(id: Long)
 
-# Retrieve the gem list
-GET     /gemList                    controllers.GemController.getGemList()
+# Retrieve all gems
+GET     /gems                       controllers.GemController.getGems()

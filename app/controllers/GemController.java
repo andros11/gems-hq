@@ -1,7 +1,7 @@
 package controllers;
 
 import models.Gem;
-import models.GemList;
+import models.GemTree;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
@@ -18,8 +18,8 @@ public class GemController extends Controller {
 		System.err.println("GET on id: "+ id);
 
 		ObjectNode result = Json.newObject();
-		GemList theList = GemList.getInstance();
-		Gem G = theList.getGemById(id);
+		GemTree theTree = GemTree.getInstance();
+		Gem G = theTree.getGemById(id);
 		if (G == null) {
 			return notFound("Gem Not Found"); // 404
 		}
@@ -29,17 +29,17 @@ public class GemController extends Controller {
 		}
 	}
 
-	public static Result getGemList() {
+	public static Result getGems() {
 		// DEBUG
-		System.err.println("GET gemList");
+		System.err.println("GET gems");
 
 		ObjectNode result = Json.newObject();
-		Gem[] theList = GemList.getInstance().getAllGems();
-		if (theList == null) {
+		Gem[] theGems = GemTree.getInstance().getAllGems();
+		if (theGems == null) {
 			return notFound("Gem Not Found"); // 404
 		}
 		else {
-			result.put("GemList", Json.toJson(theList));
+			result.put("Gems", Json.toJson(theGems));
 			return ok(result);
 		}
 	}
@@ -51,8 +51,8 @@ public class GemController extends Controller {
 			JsonNode json = request().body().asJson();
 
 			Gem newGem = mapper.readValue(json.toString(), Gem.class);
-			GemList theList = GemList.getInstance();
-			newGem = theList.addGem(newGem);
+			GemTree theTree = GemTree.getInstance();
+			newGem = theTree.addGem(newGem);
 			ObjectNode result = Json.newObject();
 			result.put("Gem", Json.toJson(newGem));
 			return created(result);
@@ -69,8 +69,8 @@ public class GemController extends Controller {
 		try {
 			JsonNode json = request().body().asJson();
 			Gem updGem = mapper.readValue(json.toString(), Gem.class);
-			GemList theList = GemList.getInstance();
-			updGem = theList.updateGem(updGem);
+			GemTree theTree = GemTree.getInstance();
+			updGem = theTree.updateGem(updGem);
 			if (updGem == null) {
 				return notFound("Gem Not Found"); // 404 
 			}
@@ -87,8 +87,8 @@ public class GemController extends Controller {
 	}
 
 	public static Result deleteGem(Long id) {
-		GemList theList = GemList.getInstance();
-		boolean erased = theList.deleteGem(id);
+		GemTree theTree = GemTree.getInstance();
+		boolean erased = theTree.deleteGem(id);
 		if (erased) {
 			// This is code 204 - OK with no content to return
 			return noContent();

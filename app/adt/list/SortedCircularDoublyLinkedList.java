@@ -1,4 +1,4 @@
-package adt;
+package adt.list;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
