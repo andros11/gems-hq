@@ -11,6 +11,7 @@ import adt.queue.Queue;
 
 
 public class BSTImp<K, V> implements BinarySearchTree<K, V> {
+	// Start - Internal classes
 	private static final int TABS = 4;
 
 	private enum ChildType {
@@ -88,8 +89,7 @@ public class BSTImp<K, V> implements BinarySearchTree<K, V> {
 		@Override
 		public V next() {
 			if (this.hasNext()) {
-				V result = this.elements.dequeue();
-				return result;
+				return this.elements.dequeue();
 			}
 			else {
 				throw new NoSuchElementException();
@@ -101,6 +101,7 @@ public class BSTImp<K, V> implements BinarySearchTree<K, V> {
 			throw new UnsupportedOperationException();	
 		}
 	}
+	// End - Internal classes
 
 	private Node root;
 	private int currentSize;
@@ -144,6 +145,7 @@ public class BSTImp<K, V> implements BinarySearchTree<K, V> {
 		}
 		if (this.root == null) {
 			this.root = new Node(key, value, null, null);
+			this.currentSize++;
 		}
 		else {
 			this.addAux(key, value, this.root);
@@ -183,18 +185,19 @@ public class BSTImp<K, V> implements BinarySearchTree<K, V> {
 			return null;
 		}
 		int comparison = this.comparator.compareTo(key, this.root.getKey());
+		// Key corresponds to root
 		if (comparison == 0) {
 			V result = this.root.getValue();
 
 			// case 1 - root is a leaf
-			if (this.size() == 1){
+			if (this.size() == 1) {
 				this.root.setKey(null);
 				this.root.setValue(null);
 				this.root = null;
 				this.currentSize--;
 			}
 			// case 2 - No right child
-			else if (this.root.rightChild == null){
+			else if (this.root.rightChild == null) {
 				this.root.setKey(null);
 				this.root.setValue(null);
 				this.root = this.root.leftChild;
@@ -214,18 +217,6 @@ public class BSTImp<K, V> implements BinarySearchTree<K, V> {
 		}
 		else {
 			return removeAux(key, this.root.rightChild, this.root, ChildType.RIGHT);
-		}
-	}
-
-	private Node findLeftMost(Node N) {
-		if (N == null) {
-			throw new IllegalArgumentException("Cannot be null");
-		}
-		if (N.leftChild == null) {
-			return N;
-		}
-		else {
-			return findLeftMost(N.leftChild);
 		}
 	}
 
@@ -275,6 +266,18 @@ public class BSTImp<K, V> implements BinarySearchTree<K, V> {
 		}
 		else {
 			return this.removeAux(key, N.rightChild, N, ChildType.RIGHT);
+		}
+	}
+
+	private Node findLeftMost(Node N) {
+		if (N == null) {
+			throw new IllegalArgumentException("Cannot be null");
+		}
+		if (N.leftChild == null) {
+			return N;
+		}
+		else {
+			return findLeftMost(N.leftChild);
 		}
 	}
 

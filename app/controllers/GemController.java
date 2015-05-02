@@ -31,17 +31,11 @@ public class GemController extends Controller {
 
 	public static Result getGems() {
 		// DEBUG
-		System.err.println("GET gems");
+		System.err.println("GET all gems");
 
-		ObjectNode result = Json.newObject();
 		Gem[] theGems = GemTree.getInstance().getAllGems();
-		if (theGems == null) {
-			return notFound("Gem Not Found"); // 404
-		}
-		else {
-			result.put("Gems", Json.toJson(theGems));
-			return ok(result);
-		}
+		JsonNode result = Json.toJson(theGems);
+		return ok(result);
 	}
 
 	@BodyParser.Of(BodyParser.Json.class)

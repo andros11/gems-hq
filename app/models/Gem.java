@@ -1,5 +1,8 @@
 package models;
 
+import java.util.ArrayList;
+
+
 public class Gem implements Comparable<Gem> {
 
 	private long id;
@@ -10,12 +13,14 @@ public class Gem implements Comparable<Gem> {
 	private int rarity;
 	private int faces;
 	private String color;
+	private ArrayList<Review> reviews;
 
 	public Gem() {
+		this.reviews = new ArrayList<Review>();
 	}
 
 	public Gem(long id, String name, String description, double price,
-			int shine, int rarity, int faces, String color) {
+			int shine, int rarity, int faces, String color, ArrayList<Review> reviews) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -25,6 +30,7 @@ public class Gem implements Comparable<Gem> {
 		this.rarity = rarity;
 		this.faces = faces;
 		this.color = color;
+		this.reviews = reviews;
 	}
 
 	public long getId() {
@@ -91,10 +97,19 @@ public class Gem implements Comparable<Gem> {
 		this.color = color;
 	}
 
+	public ArrayList<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(ArrayList<Review> reviews) {
+		this.reviews = reviews;
+	}
+
 	@Override
 	public String toString() {
 		return "(" + this.id + ", " + this.name + ", " + this.description + ", " + this.price
-				+ ", " + this.shine + ", " + this.rarity + ", " + this.faces + ", " + this.color + ")";
+				+ ", " + this.shine + ", " + this.rarity + ", " + this.faces + ", " + this.color
+				+ ", " + this.reviews + ")";
 	}
 
 	@Override

@@ -50,6 +50,7 @@ public class GemTree {
 			G.setShine(obj.getShine());
 			G.setFaces(obj.getFaces());
 			G.setColor(obj.getColor());
+			G.setReviews(obj.getReviews());
 		}
 		return G;
 	}
