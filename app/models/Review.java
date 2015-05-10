@@ -4,14 +4,14 @@ public class Review {
 
 	private long id;
 	private String title;
-	private String date;
+	private long date;
 	private String author;
 	private String text;
 
 	public Review() {
 	}
 
-	public Review(long id, String title, String date, String author, String text) {
+	public Review(long id, String title, long date, String author, String text) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -36,11 +36,11 @@ public class Review {
 		this.title = title;
 	}
 
-	public String getDate() {
+	public long getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(long date) {
 		this.date = date;
 	}
 
